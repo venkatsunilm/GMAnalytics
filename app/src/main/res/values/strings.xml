@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GMAnalytics</string>
+    <string name="gm_analytics">GM Analytics</string>
+    <string name="select_apps">Select Apps</string>
+</resources>
