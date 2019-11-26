@@ -7,13 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.gm.hmi.gmanalytics.dto.InfoDto
-import com.gm.hmi.gmanalytics.fileoperations.FileOperations
-import com.gm.hmi.gmanalytics.graphs.DrawLineGraph
-import com.gm.hmi.gmanalytics.util.Helper
-import com.jjoe64.graphview.series.DataPoint
+import com.gm.hmi.gmanalytics.computedata.dataoperations.GraphPoints
+import com.gm.hmi.gmanalytics.views.graphs.DrawLineGraph
 import kotlinx.android.synthetic.main.activity_gmanalytics.*
-import java.util.*
 
 
 class GMAnalytics : AppCompatActivity() {
@@ -24,37 +20,16 @@ class GMAnalytics : AppCompatActivity() {
 
         requestPermission(this)
 
-        val fileOperations = FileOperations()
-        val collecedData = fileOperations.getCollectedData()
+        DrawLineGraph().renderTheGraph(GraphPoints().getEventsDataPointList(), eventCountGraph, "Event Count")
 
-        var dataEvents = arrayListOf<DataPoint>()
-        var dataScreens = arrayListOf<DataPoint>()
+        //        val sortedScreenList = dataScreens.sortedWith(compareBy { it.x })
+//        DrawLineGraph().renderTheGraph(sortedScreenList, appCountGraph, "App Count")
 
-        for ((keyScreen, valueScreen) in collecedData.screenInfoList) {
-            dataScreens.add(
-                DataPoint(
-                    Date(valueScreen.firstTimeStamp),
-                    valueScreen.count.toDouble()
-                )
-            )
-            for ((keyEvent, valueEvent) in valueScreen.eventInfoList) {
-                dataEvents.add(
-                    DataPoint(
-                        Date(valueEvent.firstTimeStamp),
-                        valueEvent.count.toDouble()
-                    )
-                )
-            }
-        }
+        DrawLineGraph().renderTheGraph(GraphPoints().getScreenDataPointList(), screenCountGraph, "Screen Count")
 
-        val sortedScreenList = dataScreens.sortedWith(compareBy { it.x })
-        DrawLineGraph().renderTheGraph(sortedScreenList, appCountGraph, "App Count")
-        DrawLineGraph().renderTheGraph(sortedScreenList, screenCountGraph, "Screen Count")
-
-        val sortedEventList = dataEvents.sortedWith(compareBy { it.x })
-        DrawLineGraph().renderTheGraph(sortedEventList, eventCountGraph, "Event Count")
 
     }
+
 
     private val requestExternalStorage: Int = 150
     private fun requestPermission(activity: Activity) {

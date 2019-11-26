@@ -1,8 +1,8 @@
-package com.gm.hmi.gmanalytics.graphs
+package com.gm.hmi.gmanalytics.views.graphs
 
 import android.graphics.Color
 import androidx.annotation.NonNull
-import com.gm.hmi.gmanalytics.util.Helper
+import com.gm.hmi.gmanalytics.util.helpers.ConversionHelper
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
@@ -10,7 +10,6 @@ import com.jjoe64.graphview.series.LineGraphSeries
 
 class DrawLineGraph {
 
-    private lateinit var sortedList: List<DataPoint>
     private lateinit var series: LineGraphSeries<DataPoint>
 
     fun renderTheGraph(
@@ -36,17 +35,17 @@ class DrawLineGraph {
         graphObject.viewport.isScalable = true
         graphObject.viewport.setScalableY(true)
 
-        graphObject.getGridLabelRenderer().setLabelFormatter(object : DefaultLabelFormatter() {
+        graphObject.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 return if (isValueX) {
                     // show normal x values
-                    Helper.convertMillisToDatePattern(value.toLong(), "MMM dd")
+                    ConversionHelper.convertMillisToDatePattern(value.toLong(), "MMM dd")
                 } else {
                     // show currency for y values
                     super.formatLabel(value, isValueX)
                 }
             }
-        })
+        }
 
     }
 
