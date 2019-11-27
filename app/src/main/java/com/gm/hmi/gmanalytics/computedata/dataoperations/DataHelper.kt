@@ -2,6 +2,10 @@ package com.gm.hmi.gmanalytics.computedata.dataoperations
 
 import com.gm.hmi.gmanalytics.dto.InfoDto
 import com.gm.hmi.gmanalytics.util.helpers.ConversionHelper
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class DataHelper {
 
@@ -34,8 +38,7 @@ class DataHelper {
         return eventCountByDateList
     }
 
-
-    private var screenDataMap = hashMapOf<String, DateDurationCount>()
+    private var screenDataMap = hashMapOf<String, List<DateDurationCount>>()
     fun getScreenCountByDate(collectedData: ArrayList<InfoDto.EventInfo>): ArrayList<DateCount> {
         val sortedDataByDate =
             collectedData.sortedWith(compareBy { it.firstTimeStamp })
@@ -50,14 +53,34 @@ class DataHelper {
             value.firstTimeStamp = dateWithoutTime
         }
 
+        prepareScreenDateDuration(sortedDataByDate, classNames)
+
+        for (dateInMillis in dates) {
+            screenCountByDateList.add(
+                DateCount(
+                    dateInMillis,
+                    getScreenDurationByDate(dateInMillis).toInt()
+                )
+            )
+        }
+
+        return screenCountByDateList
+    }
+
+    private fun prepareScreenDateDuration(
+        sortedDataByDate: List<InfoDto.EventInfo>,
+        classNames: Set<String>
+    ) {
         var index = 0
         var frequencyCount = 0
         var screenFirstTimestamp: Long = 0
         var screenDuration: Long
         var screenCount = 0
         var isScreenAnalysisEnabled = false
+        val tempSortedDataByDate = arrayListOf<InfoDto.EventInfo>()
+        tempSortedDataByDate.addAll(sortedDataByDate)
         for (className in classNames) {
-            for (value in sortedDataByDate) {
+            for (value in tempSortedDataByDate) {
                 if (value.className == className) {
                     if (index == 0) {
                         screenFirstTimestamp = value.firstTimeStamp
@@ -70,13 +93,30 @@ class DataHelper {
                     if (isScreenAnalysisEnabled) {
                         isScreenAnalysisEnabled = false
                         screenDuration = value.firstTimeStamp - screenFirstTimestamp
-                        val result =
-                            DateDurationCount(
+
+                        val result: DateDurationCount
+                        val data = arrayListOf<DateDurationCount>()
+
+                        if (screenDataMap.containsKey(className)) {
+                            val screenData = screenDataMap[className]
+                            screenData?.toList()?.let { data.addAll(it) }
+
+                            result = DateDurationCount(
                                 screenFirstTimestamp,
-                                screenDuration.toInt(),
+                                screenDuration,
                                 screenCount
                             )
-                        screenDataMap[className + "_" + frequencyCount++] = result
+                            data.add(result)
+                        } else {
+                            result =
+                                DateDurationCount(
+                                    screenFirstTimestamp,
+                                    screenDuration,
+                                    screenCount
+                                )
+                            data.add(result)
+                        }
+                        screenDataMap[className] = data
                     }
                     index = 0
                     screenCount = 0
@@ -85,37 +125,35 @@ class DataHelper {
             }
             frequencyCount = 0
         }
-
-        for (dateInMillis in dates) {
-            screenCountByDateList.add(
-                DateCount(
-                    dateInMillis,
-                    getScreenCount(dateInMillis)
-                )
-            )
-        }
-
-        return screenCountByDateList
     }
 
-
-    private fun getScreenCount(dateInMillis: Long): Int {
-
-        return screenDataMap.count {
-            ConversionHelper.removeTimeFromDate(it.value.date) == dateInMillis
+    private fun getScreenCountByDate(dateInMillis: Long): Int {
+        var screenCount = 0
+        for ((key, value) in screenDataMap) {
+            screenCount += value.count {
+                ConversionHelper.removeTimeFromDate(it.date) == dateInMillis
+            }
         }
-
-//        var count = 0
-//        for ((key, value) in screenDataMap) {
-//            val firstTimeStamp = ConversionHelper.removeTimeFromDate(value.date)
-//            if (dateInMillis == firstTimeStamp) {
-//                count++
-//            }
-//        }
-//        return count
+        return screenCount
     }
 
-    class DateCount(var date: Long, var count: Int)
-    class DateDurationCount(var date: Long, var duration: Int, var count: Int)
+    private fun getScreenDurationByDate(
+        dateInMillis: Long
+    ): Long {
+        var nameVsDuration = hashMapOf<String, Long>()
+        var duration = 0L
+        for ((key, value) in screenDataMap) {
+            for (dateDurationCount in value) {
+                val firstTimeStamp = ConversionHelper.removeTimeFromDate(dateDurationCount.date)
+                if (dateInMillis == firstTimeStamp) {
+                    duration += abs(TimeUnit.MILLISECONDS.toHours(dateDurationCount.duration))
+                }
+            }
+        }
+        return duration
+    }
+
+class DateCount(var date: Long, var count: Int)
+class DateDurationCount(var date: Long, var duration: Long, var count: Int)
 
 }

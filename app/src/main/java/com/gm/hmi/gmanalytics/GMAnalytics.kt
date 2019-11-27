@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.gm.hmi.gmanalytics.computedata.dataoperations.GraphPoints
 import com.gm.hmi.gmanalytics.views.graphs.DrawLineGraph
+import com.jjoe64.graphview.series.DataPoint
 import kotlinx.android.synthetic.main.activity_gmanalytics.*
 
 
@@ -20,16 +21,29 @@ class GMAnalytics : AppCompatActivity() {
 
         requestPermission(this)
 
-        DrawLineGraph().renderTheGraph(GraphPoints().getEventsDataPointList(), eventCountGraph, "Event Count")
+        var dataPointsList = arrayListOf<List<DataPoint>>()
+        dataPointsList.add(GraphPoints().getEventsDataPointList())
+        dataPointsList.add(GraphPoints().getScreenDataPointList())
+
+        DrawLineGraph().renderTheGraph(
+            eventCountGraph,
+            "Event Count",
+            dataPointsList
+        )
 
         //        val sortedScreenList = dataScreens.sortedWith(compareBy { it.x })
 //        DrawLineGraph().renderTheGraph(sortedScreenList, appCountGraph, "App Count")
 
-        DrawLineGraph().renderTheGraph(GraphPoints().getScreenDataPointList(), screenCountGraph, "Screen Count")
+        dataPointsList.clear()
+        dataPointsList.add(GraphPoints().getScreenDataPointList())
+        DrawLineGraph().renderTheGraph(
+            screenCountGraph,
+            "Screen Count",
+            dataPointsList
+        )
 
 
     }
-
 
     private val requestExternalStorage: Int = 150
     private fun requestPermission(activity: Activity) {
