@@ -67,7 +67,7 @@ class GraphPoints {
 
     fun mockData(dataEvents: ArrayList<DataPoint>) {
         var dateMock = "23/11/2019"
-        // Adding dashboard_overview data
+        // Adding dashboard_overview_list data
         for (i in 1..10) {
             when (i) {
                 in 3..4 -> dateMock = "24/11/2019"

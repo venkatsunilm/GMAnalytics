@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuitems_details_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+    <fragment
+        android:id="@+id/titles"
+        class="com.gm.hmi.gmanalytics.views.MenuFragmentList"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/dashboardDetails"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:layout_weight="3"
+        android:background="?android:attr/detailsElementBackground">
+
+        <include
+            android:id="@+id/dashBoardMain"
+            layout="@layout/dashboard_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+    </FrameLayout>
 
 </LinearLayout>
