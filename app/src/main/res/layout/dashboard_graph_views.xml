@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:clipToPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:background="@color/colorPrimary">
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/appDurationGraph"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/pageViewsGraph"
+            app:layout_constraintEnd_toStartOf="@+id/screenDurationGraph"
+            app:layout_constraintHeight_percent=".8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/screenDurationGraph"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/appSessionsGraph"
+            app:layout_constraintHeight_percent=".8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/appDurationGraph"
+            app:layout_constraintTop_toTopOf="@+id/appDurationGraph" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/appSessionsGraph"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/screenDurationGraph"
+            app:layout_constraintTop_toTopOf="@+id/screenDurationGraph" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/pageViewsGraph"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/eventCountGraph"
+            app:layout_constraintHeight_percent=".8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/appDurationGraph"
+            app:layout_constraintTop_toBottomOf="@+id/appDurationGraph" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/eventCountGraph"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/pageViewsGraph"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pageViewsGraph"
+            app:layout_constraintTop_toTopOf="@+id/pageViewsGraph" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

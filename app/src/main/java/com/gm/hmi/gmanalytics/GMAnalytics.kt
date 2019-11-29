@@ -11,6 +11,7 @@ import com.gm.hmi.gmanalytics.computedata.dataoperations.GraphPoints
 import com.gm.hmi.gmanalytics.views.graphs.DrawLineGraph
 import com.jjoe64.graphview.series.DataPoint
 import kotlinx.android.synthetic.main.activity_gmanalytics.*
+import kotlinx.android.synthetic.main.dashboard_graph_views.view.*
 
 
 class GMAnalytics : AppCompatActivity() {
@@ -18,31 +19,57 @@ class GMAnalytics : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gmanalytics)
-
         requestPermission(this)
 
-        var dataPointsList = arrayListOf<List<DataPoint>>()
-        dataPointsList.add(GraphPoints().getEventsDataPointList())
-        dataPointsList.add(GraphPoints().getScreenDataPointList())
+        renderTheDashboardGraphs()
+    }
 
+    private fun renderTheDashboardGraphs() {
+
+        // App duration graph
+        var dataPointsList = arrayListOf<List<DataPoint>>()
+        dataPointsList.add(GraphPoints().getEventsCountDataPointList())
         DrawLineGraph().renderTheGraph(
-            eventCountGraph,
+            dashBoardGraphViewID.appDurationGraph,
+            "App duration",
+            dataPointsList
+        )
+
+        // Screen duration graph
+        dataPointsList.clear()
+        dataPointsList.add(GraphPoints().getScreenDurationDataPointsList())
+        DrawLineGraph().renderTheGraph(
+            dashBoardGraphViewID.screenDurationGraph,
+            "Screen duration",
+            dataPointsList
+        )
+
+        // App sessions graph
+        dataPointsList.clear()
+        dataPointsList.add(GraphPoints().getScreenCountDataPointList())
+        DrawLineGraph().renderTheGraph(
+            dashBoardGraphViewID.appSessionsGraph,
+            "App Count",
+            dataPointsList
+        )
+
+        // Event count graph
+        dataPointsList.clear()
+        dataPointsList.add(GraphPoints().getEventsCountDataPointList())
+        DrawLineGraph().renderTheGraph(
+            dashBoardGraphViewID.eventCountGraph,
             "Event Count",
             dataPointsList
         )
 
-        //        val sortedScreenList = dataScreens.sortedWith(compareBy { it.x })
-//        DrawLineGraph().renderTheGraph(sortedScreenList, appCountGraph, "App Count")
-
+        // Page view count graph
         dataPointsList.clear()
-        dataPointsList.add(GraphPoints().getScreenDataPointList())
+        dataPointsList.add(GraphPoints().getScreenCountDataPointList())
         DrawLineGraph().renderTheGraph(
-            screenCountGraph,
-            "Screen Count",
+            dashBoardGraphViewID.pageViewsGraph,
+            "Page views",
             dataPointsList
         )
-
-
     }
 
     private val requestExternalStorage: Int = 150

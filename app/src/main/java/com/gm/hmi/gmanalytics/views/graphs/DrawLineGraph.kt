@@ -1,6 +1,7 @@
 package com.gm.hmi.gmanalytics.views.graphs
 
 import android.graphics.Color
+import android.view.View
 import androidx.annotation.NonNull
 import com.gm.hmi.gmanalytics.util.helpers.ConversionHelper
 import com.jjoe64.graphview.DefaultLabelFormatter
@@ -39,7 +40,7 @@ class DrawLineGraph {
             series.thickness = 10
             series.isDrawBackground = true
             series.isDrawDataPoints = true
-            series.dataPointsRadius = 10f
+            series.dataPointsRadius = 15f
             series.setAnimated(true)
             series.title = "Project$index"
 
@@ -50,14 +51,15 @@ class DrawLineGraph {
         graphObject.viewport.isScrollable = true
         graphObject.viewport.setScrollableY(true)
         graphObject.title = title
-        graphObject.legendRenderer.isVisible = true
-        graphObject.legendRenderer.textSize = 40f
+        graphObject.legendRenderer.isVisible = false
+        graphObject.legendRenderer.textSize = 20f
         graphObject.legendRenderer.textColor = Color.WHITE
         graphObject.legendRenderer.align = LegendRenderer.LegendAlign.TOP
         graphObject.legendRenderer.spacing = 10
         graphObject.legendRenderer.margin = 10
         graphObject.titleColor = Color.BLACK
-        graphObject.titleTextSize = 66f
+        graphObject.titleTextSize = 40f
+        graphObject.textAlignment = View.TEXT_ALIGNMENT_GRAVITY
         graphObject.setBackgroundColor(Color.WHITE)
         graphObject.viewport.isScalable = true
         graphObject.viewport.setScalableY(true)

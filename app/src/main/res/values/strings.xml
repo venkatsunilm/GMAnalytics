@@ -5,4 +5,5 @@
     <string name="AnalyticsIcon">GM Analytics Icon</string>
     <string name="analytics">Analytics</string>
     <string name="behaviour">Behaviour</string>
+    <string name="title">Dashboard Overview</string>
 </resources>

@@ -8,13 +8,11 @@ import kotlin.collections.ArrayList
 
 class GraphPoints {
 
-    fun getEventsDataPointList(): List<DataPoint> {
-        val fileOperations = FileOperations()
-        val collectedData = fileOperations.getCollectedData()
+    private val fileOperations = FileOperations()
+    private val dataHelper = DataHelper(fileOperations.getCollectedData())
 
-        val dataHelper = DataHelper()
-        val dateCountList = dataHelper.getEventCountByDate(collectedData)
-
+    fun getEventsCountDataPointList(): List<DataPoint> {
+        val dateCountList = dataHelper.getEventCountByDate()
         val dataEvents = arrayListOf<DataPoint>()
         for (date in dateCountList) {
             dataEvents.add(
@@ -24,11 +22,8 @@ class GraphPoints {
                 )
             )
         }
-
 //        mockData(dataEvents)
-
 //        dataEvents.clear()
-
 //        dataEvents.add(DataPoint(0.0, 1.0))
 //        dataEvents.add(DataPoint(1.0, 4.0))
 //        dataEvents.add(DataPoint(2.0, -5.0))
@@ -39,16 +34,10 @@ class GraphPoints {
 //        dataEvents.add(DataPoint(7.0, 7.0))
 
         return dataEvents.sortedWith(compareBy { it.x })
-
     }
 
-    fun getScreenDataPointList(): List<DataPoint> {
-        val fileOperations = FileOperations()
-        val collectedData = fileOperations.getCollectedData()
-
-        val dataHelper = DataHelper()
-        val dateCountList = dataHelper.getScreenCountByDate(collectedData)
-
+    fun getScreenCountDataPointList(): List<DataPoint> {
+        val dateCountList = dataHelper.getScreenCountByDate()
         val dataEvents = arrayListOf<DataPoint>()
         for (date in dateCountList) {
             dataEvents.add(
@@ -58,27 +47,27 @@ class GraphPoints {
                 )
             )
         }
+        return dataEvents.sortedWith(compareBy { it.x })
+    }
 
-//        mockData(dataEvents)
-
-//        dataEvents.clear()
-
-//        dataEvents.add(DataPoint(0.0, 1.0))
-//        dataEvents.add(DataPoint(1.0, 4.0))
-//        dataEvents.add(DataPoint(2.0, -5.0))
-//        dataEvents.add(DataPoint(3.0, 1.0))
-//        dataEvents.add(DataPoint(4.0, 0.0))
-//        dataEvents.add(DataPoint(5.0, 3.0))
-//        dataEvents.add(DataPoint(6.0, 1.0))
-//        dataEvents.add(DataPoint(7.0, 7.0))
+    fun getScreenDurationDataPointsList(): List<DataPoint> {
+        val dataDurationsList = dataHelper.getScreenDurationByDate()
+        val dataEvents = arrayListOf<DataPoint>()
+        for (date in dataDurationsList) {
+            dataEvents.add(
+                DataPoint(
+                    date.date.toDouble(),
+                    date.duration.toDouble()
+                )
+            )
+        }
 
         return dataEvents.sortedWith(compareBy { it.x })
-
     }
 
     fun mockData(dataEvents: ArrayList<DataPoint>) {
         var dateMock = "23/11/2019"
-        // Adding test data
+        // Adding dashboard_overview data
         for (i in 1..10) {
             when (i) {
                 in 3..4 -> dateMock = "24/11/2019"

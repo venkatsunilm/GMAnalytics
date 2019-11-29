@@ -2,58 +2,70 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gmAnalyticsHomeConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".GMAnalytics">
 
-    <LinearLayout
-        android:id="@+id/icon_name"
+    <ImageView
+        android:id="@+id/analyticsIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/AnalyticsIcon"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/analyticsName"
+        app:layout_constraintEnd_toEndOf="@+id/analyticsName"
+        app:layout_constraintHeight_percent=".13"
+        app:layout_constraintStart_toStartOf="@+id/analyticsName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent=".13"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/analyticsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/gm_analytics"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/headerbodyguideline"
+        app:layout_constraintEnd_toStartOf="@+id/mennulistguideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/analyticsIcon"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            android:contentDescription="@string/AnalyticsIcon" />
-
-        <TextView
-            android:id="@+id/analyticsName"
-            android:layout_width="218dp"
-            android:layout_height="59dp"
-            android:text="@string/gm_analytics"
-            android:textSize="36sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/analyticsIcon" />
 
     <TextView
         android:id="@+id/selectAppText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="137dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/select_apps"
-        android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/icon_name"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/barrier"
+        app:layout_constraintEnd_toStartOf="@+id/appNameListButtons"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mennulistguideline"
+        app:layout_constraintStart_toStartOf="@+id/mennulistguideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/appNameListButtons"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="721dp"
+        android:layout_height="39dp"
         android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/selectAppText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/icon_name"
-        app:layout_constraintTop_toBottomOf="@+id/selectAppText" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/selectAppText"
+        app:layout_constraintTop_toTopOf="@+id/selectAppText" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -69,87 +81,61 @@
         android:layout_marginEnd="80dp"
         android:background="?android:attr/listDivider"
         android:foreground="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/headerbodyguideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appNameListButtons" />
+        app:layout_constraintTop_toBottomOf="@+id/analyticsName" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/headerbodyguideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.20" />
 
-    <LinearLayout
-        android:id="@+id/titleDetailsLinear"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menulist"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:orientation="horizontal"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mennulistguideline"
+        app:layout_constraintStart_toStartOf="@+id/analyticsName"
+        app:layout_constraintTop_toTopOf="@+id/headerbodyguideline">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mennulistguideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <include
+        android:id="@+id/dashBoardOverviewId"
+        layout="@layout/dashboard_overview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".2"
+        app:layout_constraintStart_toEndOf="@id/mennulistguideline"
+        app:layout_constraintTop_toBottomOf="@id/headerbodyguideline" />
+
+    <include
+        android:id="@+id/dashBoardGraphViewID"
+        layout="@layout/dashboard_graph_views"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
-
-        <ListView
-            android:id="@+id/titleList"
-            android:layout_width="221dp"
-            android:layout_height="match_parent">
-
-        </ListView>
-
-        <LinearLayout
-            android:id="@+id/allGraphLinearVer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/twoGraphLinearHor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/appCountGraph"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/white" />
-
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/screenCountGraph"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/white" />
-
-            </LinearLayout>
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/eventCountGraph"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1"
-                android:background="@android:color/white" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="@+id/dashBoardOverviewId"
+        app:layout_constraintTop_toBottomOf="@+id/dashBoardOverviewId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
