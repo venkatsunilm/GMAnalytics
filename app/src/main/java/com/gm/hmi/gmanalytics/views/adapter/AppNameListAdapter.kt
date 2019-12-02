@@ -1,27 +1,51 @@
 package com.gm.hmi.gmanalytics.views.adapter
 
-import android.media.Image
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
+import com.gm.hmi.gmanalytics.R
 
-class AppNameListAdapter(val overviewHeaderValueList: List<NameImageModel>) :
-    RecyclerView.Adapter<DashboardOverviewListAdapter.ViewHolder>()  {
+class AppNameListAdapter(val appNameImageToggleList: List<NameImageModel>) :
+    RecyclerView.Adapter<AppNameListAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
+
+        var appNameToggleButton: ToggleButton =
+            itemView.findViewById(R.id.appNameToggleButton) as ToggleButton
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
-    ): DashboardOverviewListAdapter.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        viewType: Int): ViewHolder {
+
+        val context = parent.context
+        val inflater = LayoutInflater.from(context)
+
+        // Inflate the custom layout
+        val appNameImageItemView =
+            inflater.inflate(R.layout.app_name_image_item, parent, false)
+
+        // Return a new holder instance
+
+        return ViewHolder(appNameImageItemView)
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return appNameImageToggleList.size
     }
 
-    override fun onBindViewHolder(holder: DashboardOverviewListAdapter.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = appNameImageToggleList[position]
+
+        holder.appNameToggleButton.text = item.name
+        holder.appNameToggleButton.textOff = item.name
+        holder.appNameToggleButton.textOn = item.name
     }
 
 
 }
 
-data class NameImageModel(val name: String, val image: Image)
+data class NameImageModel(val name: String/*, val image: Image*/)

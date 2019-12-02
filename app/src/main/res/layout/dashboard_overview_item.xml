@@ -3,7 +3,8 @@
     android:id="@+id/dashboard_overview_list"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:orientation="vertical">
 
     <TextView
@@ -12,9 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        style="@style/TextSize"
         android:text="Header"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        />
 
     <TextView
         android:id="@+id/dashboardOverviewListValue"
@@ -23,7 +25,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center"
+        style="@style/TextSize"
         android:text="Value"
         android:textColor="@android:color/holo_green_dark"
-        android:textSize="14sp" />
+        />
 </LinearLayout>

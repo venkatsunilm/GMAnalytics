@@ -42,10 +42,12 @@
 
     <TextView
         android:id="@+id/selectAppText"
-        android:layout_width="137dp"
-        android:layout_height="39dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        style="@style/TextSize"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/select_apps"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -60,7 +62,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/selectAppText"
+        style="@style/TextSize"
+        app:layout_constraintBottom_toTopOf="@+id/headerDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/selectAppText"
@@ -99,6 +102,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        style="@style/TextSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,11 +121,11 @@
 
     <!--    </androidx.recyclerview.widget.RecyclerView>-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/mennulistguideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mennulistguideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

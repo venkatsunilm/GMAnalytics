@@ -1,13 +1,12 @@
 package com.gm.hmi.gmanalytics.views
 
-import android.R
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.ListFragment
+import com.gm.hmi.gmanalytics.R
 
 class MenuFragmentList : ListFragment() {
 
@@ -21,7 +20,7 @@ class MenuFragmentList : ListFragment() {
         listAdapter = activity?.let {
             ArrayAdapter<String>(
                 it,
-                R.layout.simple_list_item_activated_1,
+                R.layout.menu_item,
                 arrayOf(
                     "Dashboard",
                     "App Summary",
@@ -39,7 +38,7 @@ class MenuFragmentList : ListFragment() {
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
         val detailsFrame: View? =
-            activity?.findViewById<View>(com.gm.hmi.gmanalytics.R.id.dashboardDetails)
+            activity?.findViewById<View>(com.gm.hmi.gmanalytics.R.id.dashboardgraphDetails)
         dualPane = detailsFrame?.visibility == View.VISIBLE
 
         curCheckPosition = savedInstanceState?.getInt("curChoice", 0) ?: 0
@@ -81,7 +80,7 @@ class MenuFragmentList : ListFragment() {
 
             // Check what fragment is currently shown, replace if needed.
             var details =
-                fragmentManager?.findFragmentById(com.gm.hmi.gmanalytics.R.id.dashboardDetails) as? DetailsFragment
+                fragmentManager?.findFragmentById(com.gm.hmi.gmanalytics.R.id.dashboardgraphDetails) as? DetailsFragment
             if (details?.shownIndex != index) {
                 // Make new fragment to show this selection.
                 details = DetailsFragment.newInstance(index)
@@ -90,7 +89,7 @@ class MenuFragmentList : ListFragment() {
                 // with this one inside the frame.
                 fragmentManager?.beginTransaction()?.apply {
                     if (index == 0) {
-                        replace(com.gm.hmi.gmanalytics.R.id.dashboardDetails, details)
+                        replace(com.gm.hmi.gmanalytics.R.id.dashboardgraphDetails, details)
                     } else {
 //                        replace(android.R.id.a_item, details)
                     }

@@ -10,13 +10,17 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gm.hmi.gmanalytics.computedata.dataoperations.GraphPoints
+import com.gm.hmi.gmanalytics.views.adapter.AppNameListAdapter
 import com.gm.hmi.gmanalytics.views.adapter.DashboardOverviewListAdapter
+import com.gm.hmi.gmanalytics.views.adapter.NameImageModel
 import com.gm.hmi.gmanalytics.views.adapter.OverviewHeaderValueModel
 import com.gm.hmi.gmanalytics.views.graphs.DrawLineGraph
 import com.jjoe64.graphview.series.DataPoint
+import kotlinx.android.synthetic.main.activity_gmanalytics.*
 import kotlinx.android.synthetic.main.dashboard_graph_views.view.*
 import kotlinx.android.synthetic.main.dashboard_main.*
 import kotlinx.android.synthetic.main.dashboard_overview_list.*
+import java.time.format.TextStyle
 
 
 class GMAnalytics : AppCompatActivity() {
@@ -27,6 +31,7 @@ class GMAnalytics : AppCompatActivity() {
         requestPermission(this)
 
         bindDashboardOverviewListAdapterToRecycleView()
+        bindAppNameImageviewListAdapterToRecycleView()
         renderTheDashboardGraphs()
     }
 
@@ -35,9 +40,8 @@ class GMAnalytics : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private fun bindDashboardOverviewListAdapterToRecycleView() {
-        var lastContactId = 0
-        var count = 20
         val headerValueList = ArrayList<OverviewHeaderValueModel>()
+
         val overviewList = arrayOf(
             "App Duration",
             "Screen Duration",
@@ -47,13 +51,11 @@ class GMAnalytics : AppCompatActivity() {
             "New Devices",
             "Total Devices"
         )
-
         overviewList.reverse()
-
-        for (i in 0 until overviewList.size) {
+        for (element in overviewList) {
             headerValueList.add(
                 OverviewHeaderValueModel(
-                    overviewList[i],
+                    element,
                     40
                 )
             )
@@ -61,32 +63,52 @@ class GMAnalytics : AppCompatActivity() {
 
         viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         viewAdapter = DashboardOverviewListAdapter(headerValueList)
-
         recyclerView = dashboard_overview.apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
+            setHasFixedSize(false)
             // use a linear layout manager
             layoutManager = viewManager
-
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
+        }
+    }
 
+    private fun bindAppNameImageviewListAdapterToRecycleView() {
+        val appNamesList = ArrayList<NameImageModel>()
+        val appNames = arrayOf(
+            "HVac",
+            "On Star",
+            "Camera",
+            "Settings",
+            "Phone",
+            "Updater",
+            "Tailer",
+            "Projections",
+            "Audio",
+            "SXM"
+        )
 
+        appNames.reverse()
+        for (element in appNames) {
+            appNamesList.add(
+                NameImageModel(
+                    element
+                )
+            )
         }
 
-//        recyclerView.layoutManager.orien
-
-
-////        val overviewAdapter = DashboardOverviewListAdapter(headerValueList)
-//        dashboard_overview.adapter = overviewAdapter
-//
-//        dashboard_overview.layoutManager = LinearLayoutManager(this)
-//        val layManager = dashboard_overview.layoutManager
-////        layManager.orientation = LinearLayoutManager.HORIZONTAL
-//
-//        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        viewAdapter = AppNameListAdapter(appNamesList)
+        recyclerView = appNameListButtons.apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(false)
+            // use a linear layout manager
+            layoutManager = viewManager
+            // specify an viewAdapter (see also next example)
+            adapter = viewAdapter
+        }
     }
 
     private fun renderTheDashboardGraphs() {
