@@ -35,6 +35,7 @@ class MenuFragmentList : ListFragment() {
             )
         }
 
+
         // Check to see if we have a frame in which to embed the details
         // fragment directly in the containing UI.
         val detailsFrame: View? =

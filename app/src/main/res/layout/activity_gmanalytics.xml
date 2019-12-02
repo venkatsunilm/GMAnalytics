@@ -42,38 +42,57 @@
 
     <TextView
         android:id="@+id/selectAppText"
+        style="@style/TextSizeMediumDefault"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        style="@style/TextSize"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/select_apps"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintEnd_toStartOf="@+id/appNameListButtons"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/mennulistguideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appNameListButtons"
+        style="@style/TextSizeMediumDefault"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="32dp"
-        style="@style/TextSize"
-        app:layout_constraintBottom_toTopOf="@+id/headerDivider"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/appsDateFilter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/selectAppText"
-        app:layout_constraintTop_toTopOf="@+id/selectAppText" />
+        app:layout_constraintTop_toTopOf="@+id/selectAppText"
+        app:layout_constraintVertical_bias="0.51" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
+
+    <LinearLayout
+        android:id="@+id/appsDateFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/headerDivider"
+        app:layout_constraintEnd_toEndOf="@+id/appNameListButtons"
+        app:layout_constraintTop_toBottomOf="@id/appNameListButtons">
+
+        <ImageView
+            android:id="@+id/appsCalenderImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <TextView
+            android:id="@+id/appsDateText"
+            style="@style/TextSizeMediumDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="November 02  - December 01"
+            android:textAlignment="textEnd" />
+
+    </LinearLayout>
 
     <View
         android:id="@+id/headerDivider"
@@ -97,29 +116,16 @@
 
     <include
         android:id="@+id/menuItemAndDetails"
+        style="@style/TextSizeMediumDefault"
         layout="@layout/menuitems_details_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/TextSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerbodyguideline" />
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/menulist"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        android:layout_marginBottom="8dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/mennulistguideline"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/analyticsName"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/headerbodyguideline">-->
-
-    <!--    </androidx.recyclerview.widget.RecyclerView>-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/mennulistguideline"
@@ -127,5 +133,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="TextSize" parent="TextAppearance.AppCompat">
+    <style name="TextSizeMediumDefault" parent="TextAppearance.AppCompat">
         <item name="android:textSize">24sp</item>
-
+    </style>
+    <style name="TextSizeLargeDefault" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">36sp</item>
     </style>
 
 </resources>

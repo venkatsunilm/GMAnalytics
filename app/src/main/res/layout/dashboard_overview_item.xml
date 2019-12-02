@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        style="@style/TextSize"
+        style="@style/TextSizeMediumDefault"
         android:text="Header"
         android:textColor="@android:color/black"
         />
@@ -25,8 +25,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center"
-        style="@style/TextSize"
+        style="@style/TextSizeLargeDefault"
         android:text="Value"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/black"
         />
 </LinearLayout>

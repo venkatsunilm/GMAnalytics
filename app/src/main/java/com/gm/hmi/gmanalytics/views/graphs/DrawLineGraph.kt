@@ -32,8 +32,10 @@ class DrawLineGraph {
                     series.backgroundColor = Color.argb(20, 255, 195, 0)
                 }
                 1 -> {
-                    series.color = Color.rgb(10, 214, 182)
-                    series.backgroundColor = Color.argb(20, 10, 214, 182)
+                    series.color = Color.rgb(161, 214, 0)
+                    series.backgroundColor = Color.argb(20, 161, 214, 0)
+//                    series.color = Color.rgb(10, 214, 182)
+//                    series.backgroundColor = Color.argb(20, 10, 214, 182)
                 }
             }
 
@@ -69,13 +71,28 @@ class DrawLineGraph {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 return when {
                     isValueX -> // show normal x values
-                        ConversionHelper.convertMillisToDatePattern(value.toLong(), "MMM dd")
+                        manageDateFormat(value)
                     else -> // show y values
                         super.formatLabel(value, isValueX)
                 }
             }
         }
 
+    }
+
+    var previousMonth = "Jan"
+    var currMonth = "Feb"
+    var resultMonth = ""
+    private fun manageDateFormat(value: Double): String {
+        currMonth =
+            ConversionHelper.convertMillisToDatePattern(value.toLong(), "MMM")
+        if (currMonth == previousMonth) {
+            resultMonth = ConversionHelper.convertMillisToDatePattern(value.toLong(), "dd")
+        } else {
+            resultMonth = ConversionHelper.convertMillisToDatePattern(value.toLong(), "MMM dd")
+        }
+        previousMonth = currMonth
+        return resultMonth
     }
 
 }
