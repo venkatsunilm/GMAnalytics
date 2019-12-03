@@ -1,5 +1,7 @@
 package com.gm.hmi.gmanalytics.dto
 
+//TODO: remove unnecessary variables
+
 class InfoDto {
 
     data class AppInfo(

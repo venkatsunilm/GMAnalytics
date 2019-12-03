@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.dashboard_main.*
 import kotlinx.android.synthetic.main.dashboard_overview_list.*
 import java.time.format.TextStyle
 
+//TODO: Need to use Data binding concept once understood
+//TODO: Make this project as a stand alone module or a library
 
 class GMAnalytics : AppCompatActivity() {
 
@@ -39,6 +41,9 @@ class GMAnalytics : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    /**
+     * Bind view adapter and view manager to Dashboard overview recycler view
+     */
     private fun bindDashboardOverviewListAdapterToRecycleView() {
         val headerValueList = ArrayList<OverviewHeaderValueModel>()
 
@@ -64,16 +69,15 @@ class GMAnalytics : AppCompatActivity() {
         viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         viewAdapter = DashboardOverviewListAdapter(headerValueList)
         recyclerView = dashboard_overview.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(false)
-            // use a linear layout manager
             layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
     }
 
+    /**
+     * Attach view adapter and mamager to the App Names recycler view
+     */
     private fun bindAppNameImageviewListAdapterToRecycleView() {
         val appNamesList = ArrayList<NameImageModel>()
         val appNames = arrayOf(
@@ -83,7 +87,7 @@ class GMAnalytics : AppCompatActivity() {
             "Settings",
             "Phone",
             "Updater",
-            "Tailer",
+            "Trailer",
             "Projections",
             "Audio",
             "SXM"
@@ -101,16 +105,15 @@ class GMAnalytics : AppCompatActivity() {
         viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         viewAdapter = AppNameListAdapter(appNamesList)
         recyclerView = appNameListButtons.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(false)
-            // use a linear layout manager
             layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
     }
 
+    /**
+     * List of graphs to display sequentially
+     */
     private fun renderTheDashboardGraphs() {
 
         // App duration graph
@@ -159,6 +162,12 @@ class GMAnalytics : AppCompatActivity() {
         )
     }
 
+
+//    TODO: Instead of file system storage use Content provider in the GMAnalytics application and pass data to that application from all apps
+
+    /**
+     * Helps to request permission to store the data in a file
+     */
     private val requestExternalStorage: Int = 150
     private fun requestPermission(activity: Activity) {
         val permission = ActivityCompat.checkSelfPermission(

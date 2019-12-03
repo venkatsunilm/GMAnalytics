@@ -11,6 +11,13 @@ class ConversionHelper {
 
         private const val datePatternDefault = "dd/MM/yyyy"
 
+//        TODO: Add overloading parameter datePattern by assigning datePatternDefault
+        /**
+         * converts date of default format to Milli seconds
+         *
+         * @param dateInTextFormat: Date in a text format
+         * @return date in milli seconds
+         */
         fun convertDateToMills(dateInTextFormat: String): Long {
             var date: Date? = Date()
             val formatter = SimpleDateFormat(datePatternDefault, Locale.getDefault())
@@ -24,7 +31,7 @@ class ConversionHelper {
         }
 
         /**
-         * ConversionHelper method to convert milli seconds time to String by applying a default pattern
+         * Converts milli seconds time to String by applying a default pattern
          * @param milliSeconds: time in milli seconds
          * @param datePattern: by default pattern "dd-MM-yyyy HH:MM" is applied, pass a required pattern to override the default
          *
@@ -37,6 +44,12 @@ class ConversionHelper {
             return SimpleDateFormat(datePattern, Locale.getDefault()).format(Date(milliSeconds))
         }
 
+        /**
+         * Removes time only from Date provided in Milli seconds
+         *
+         * @param dateInMillis
+         * @return time in milli seconds
+         */
         fun removeTimeFromDate(dateInMillis: Long): Long =
             convertDateToMills(
                 convertMillisToDatePattern(

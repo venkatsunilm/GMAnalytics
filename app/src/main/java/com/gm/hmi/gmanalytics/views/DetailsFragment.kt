@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment
 import com.gm.hmi.gmanalytics.R
 import kotlinx.android.synthetic.main.dashboard_main.view.*
 
+//TODO: Sample class collected from google examples
+//TODO: Under construction
+
 class DetailsFragment : Fragment() {
 
     val shownIndex: Int by lazy {

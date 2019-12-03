@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gm.hmi.gmanalytics.R
 
 
+/**
+ * Dashboard Header and its value list Adapter, helps to render the combination and to update data dynamically
+ *
+ * @param overviewHeaderValueList: List of items holding Header and value
+ */
+
 class DashboardOverviewListAdapter(val overviewHeaderValueList: List<OverviewHeaderValueModel>) :
     RecyclerView.Adapter<DashboardOverviewListAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,24 +46,6 @@ class DashboardOverviewListAdapter(val overviewHeaderValueList: List<OverviewHea
         holder.dashboardOverviewListHeader.text = overviewHeaderValueData.header
         holder.dashboardOverviewListValue.text = overviewHeaderValueData.value.toString()
     }
-
-
-//    private var lastContactId = 0
-
-//    fun createContactsList(count: Int): ArrayList<OverviewHeaderValueModel> {
-//        val headerValueList = ArrayList<OverviewHeaderValueModel>()
-//
-//        for (i in 1..count) {
-//            headerValueList.add(
-//                OverviewHeaderValueModel(
-//                    "Header " + ++lastContactId,
-//                    "Value " + ++lastContactId
-//                )
-//            )
-//        }
-//
-//        return headerValueList
-//    }
 
 }
 

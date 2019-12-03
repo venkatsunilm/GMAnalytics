@@ -6,12 +6,20 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.math.abs
 
-class DataHelper (val collectedData: ArrayList<InfoDto.EventInfo>) {
+/**
+ * Helper class to manipulate data
+ *
+ * @param eventsData
+ */
+class DataHelper(val eventsData: ArrayList<InfoDto.EventInfo>) {
 
+    /**
+     * gets date wise event count info
+     */
     fun getEventCountByDate(): ArrayList<DateCount> {
 
         val sortedDataByDate =
-            collectedData.sortedWith(compareBy { it.firstTimeStamp })
+            eventsData.sortedWith(compareBy { it.firstTimeStamp })
         val eventNames = hashSetOf<String>()
         val dates = hashSetOf<Long>()
         val eventCountByDateList = arrayListOf<DateCount>()
@@ -38,9 +46,12 @@ class DataHelper (val collectedData: ArrayList<InfoDto.EventInfo>) {
     }
 
     private var screenDataMap = hashMapOf<String, List<DateDurationCount>>()
+    /**
+     * gets date wise screen count info
+     */
     fun getScreenCountByDate(): ArrayList<DateCount> {
         val sortedDataByDate =
-            collectedData.sortedWith(compareBy { it.firstTimeStamp })
+            eventsData.sortedWith(compareBy { it.firstTimeStamp })
         val classNames = hashSetOf<String>()
         val dates = hashSetOf<Long>()
         val screenCountByDateList = arrayListOf<DateCount>()
@@ -66,6 +77,42 @@ class DataHelper (val collectedData: ArrayList<InfoDto.EventInfo>) {
         return screenCountByDateList
     }
 
+    /**
+     * date wise Screen duration
+     */
+    fun getScreenDurationByDate(): ArrayList<DateDurationCount> {
+        val sortedDataByDate =
+            eventsData.sortedWith(compareBy { it.firstTimeStamp })
+        val classNames = hashSetOf<String>()
+        val dates = hashSetOf<Long>()
+        val screenDurationByDateList = arrayListOf<DateDurationCount>()
+
+        for (value in sortedDataByDate) {
+            val dateWithoutTime = ConversionHelper.removeTimeFromDate(value.firstTimeStamp)
+            classNames.add(value.className)// collect all the event names without duplicates
+            dates.add(dateWithoutTime) // collect all the Timestamp without duplicates
+            value.firstTimeStamp = dateWithoutTime
+        }
+
+        prepareScreenDateDuration(sortedDataByDate, classNames)
+
+        for (dateInMillis in dates) {
+            screenDurationByDateList.add(
+                DateDurationCount(
+                    dateInMillis,
+                    getScreenDurationVsDate(dateInMillis),
+                    0
+                )
+            )
+        }
+
+        return screenDurationByDateList
+    }
+
+    //<editor-fold desc="Private methods">
+    /**
+     * prepare screen duration date wise to collect date wise duration
+     */
     private fun prepareScreenDateDuration(
         sortedDataByDate: List<InfoDto.EventInfo>,
         classNames: Set<String>
@@ -126,34 +173,6 @@ class DataHelper (val collectedData: ArrayList<InfoDto.EventInfo>) {
         }
     }
 
-    fun getScreenDurationByDate() : ArrayList<DateDurationCount>{
-        val sortedDataByDate =
-            collectedData.sortedWith(compareBy { it.firstTimeStamp })
-        val classNames = hashSetOf<String>()
-        val dates = hashSetOf<Long>()
-        val screenDurationByDateList = arrayListOf<DateDurationCount>()
-
-        for (value in sortedDataByDate) {
-            val dateWithoutTime = ConversionHelper.removeTimeFromDate(value.firstTimeStamp)
-            classNames.add(value.className)// collect all the event names without duplicates
-            dates.add(dateWithoutTime) // collect all the Timestamp without duplicates
-            value.firstTimeStamp = dateWithoutTime
-        }
-
-        prepareScreenDateDuration(sortedDataByDate, classNames)
-
-        for (dateInMillis in dates) {
-            screenDurationByDateList.add(
-                DateDurationCount(
-                    dateInMillis,
-                    getScreenDurationVsDate(dateInMillis),
-                    0
-                )
-            )
-        }
-
-        return screenDurationByDateList
-    }
 
     private fun getScreenCountVsDate(dateInMillis: Long): Int {
         var screenCount = 0
@@ -180,8 +199,12 @@ class DataHelper (val collectedData: ArrayList<InfoDto.EventInfo>) {
         }
         return duration
     }
+    //</editor-fold>
 
-class DateCount(var date: Long, var count: Int)
-class DateDurationCount(var date: Long, var duration: Long, var count: Int)
+    //<editor-fold desc="private Data model classes for Data Helper class">
+    private class DateCount(var date: Long, var count: Int)
+
+    private class DateDurationCount(var date: Long, var duration: Long, var count: Int)
+    //</editor-fold>
 
 }

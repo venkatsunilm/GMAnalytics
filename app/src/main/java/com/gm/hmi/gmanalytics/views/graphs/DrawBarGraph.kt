@@ -13,6 +13,20 @@ class DrawBarGraph {
     private lateinit var sortedList: List<DataPoint>
     private lateinit var series: BarGraphSeries<DataPoint>
 
+//    TODO: Make a model class to collect custom properties and assign default values.
+//    TODO: Pass graph properties model as dependency
+//    TODO: Pass title a list
+//    TODO: sort the order of the passing parameters and make necessary changes similar to the Line Graph
+//    TODO: Under construction
+
+    /***
+     * Renders the line graph with default properties
+     *
+     * @param graphObject: bar graph object
+     * @param title: Title of the graph
+     * @param sortedList: Pass the list of Data points necesaary to render the bar graph
+     */
+
     fun renderTheGraph(
         @NonNull sortedList: List<DataPoint>,
         @NonNull graphObject: GraphView,

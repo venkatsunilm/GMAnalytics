@@ -8,6 +8,12 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.ListFragment
 import com.gm.hmi.gmanalytics.R
 
+//TODO: Sample class collected from google and made changes to the fragment list
+//TODO: Under construction
+
+/**
+ * Helps to render the list of menu items using inbuilt Fragment list class
+ */
 class MenuFragmentList : ListFragment() {
 
     private var dualPane: Boolean = false
@@ -56,11 +62,6 @@ class MenuFragmentList : ListFragment() {
         super.onSaveInstanceState(outState)
         outState.putInt("curChoice", curCheckPosition)
     }
-
-//    override fun getView(): View? {
-//        getView()?.setBackgroundColor(Color.BLUE)
-//        return super.getView()
-//    }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         showDetails(position)

@@ -7,6 +7,13 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.gm.hmi.gmanalytics.R
 
+//TODO: To add image with app name in future
+
+/**
+ * Application Name and Icon list Adapter class, helps to render the combination and to update data dynamically
+ *
+ * @param appNameImageToggleList: List of items holding NameImageModel
+ */
 class AppNameListAdapter(val appNameImageToggleList: List<NameImageModel>) :
     RecyclerView.Adapter<AppNameListAdapter.ViewHolder>() {
 
@@ -44,7 +51,6 @@ class AppNameListAdapter(val appNameImageToggleList: List<NameImageModel>) :
         holder.appNameToggleButton.textOff = item.name
         holder.appNameToggleButton.textOn = item.name
     }
-
 
 }
 

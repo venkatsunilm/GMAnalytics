@@ -15,6 +15,16 @@ class DrawLineGraph {
     private lateinit var series: LineGraphSeries<DataPoint>
     private lateinit var series2: LineGraphSeries<DataPoint>
 
+//    TODO: Make a model class to collect custom properties and assign default values.
+//    TODO: Pass graph properties model as dependency
+//    TODO: Pass title a list
+    /***
+     * Renders the line graph with default properties
+     *
+     * @param graphObject: line graph object
+     * @param title: Title of the graph
+     * @param sortedList: Pass the list of Data points necesaary to render the line graph
+     */
     fun renderTheGraph(
         @NonNull graphObject: GraphView,
         title: String,
@@ -71,7 +81,7 @@ class DrawLineGraph {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 return when {
                     isValueX -> // show normal x values
-                        manageDateFormat(value)
+                        removeMonthFromDate(value)
                     else -> // show y values
                         super.formatLabel(value, isValueX)
                 }
@@ -83,7 +93,13 @@ class DrawLineGraph {
     var previousMonth = "Jan"
     var currMonth = "Feb"
     var resultMonth = ""
-    private fun manageDateFormat(value: Double): String {
+    /***
+     * Helps to make the custom date format, to render on the graph
+     * by removing the month name when not necessary
+     *
+     * @param value: Timestamp
+     */
+    private fun removeMonthFromDate(value: Double): String {
         currMonth =
             ConversionHelper.convertMillisToDatePattern(value.toLong(), "MMM")
         if (currMonth == previousMonth) {
