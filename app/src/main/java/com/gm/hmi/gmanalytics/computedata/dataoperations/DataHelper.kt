@@ -201,10 +201,10 @@ class DataHelper(val eventsData: ArrayList<InfoDto.EventInfo>) {
     }
     //</editor-fold>
 
-    //<editor-fold desc="private Data model classes for Data Helper class">
-    private class DateCount(var date: Long, var count: Int)
+    //<editor-fold desc="Data model classes for Data Helper class">
+    class DateCount(var date: Long, var count: Int)
 
-    private class DateDurationCount(var date: Long, var duration: Long, var count: Int)
+    class DateDurationCount(var date: Long, var duration: Long, var count: Int)
     //</editor-fold>
 
 }

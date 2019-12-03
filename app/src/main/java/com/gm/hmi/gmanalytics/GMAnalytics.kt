@@ -118,7 +118,7 @@ class GMAnalytics : AppCompatActivity() {
 
         // App duration graph
         var dataPointsList = arrayListOf<List<DataPoint>>()
-        dataPointsList.add(GraphPoints().getEventsCountDataPointList())
+        dataPointsList.add(GraphPoints().getEventsCountVsDateDataPointList())
         DrawLineGraph().renderTheGraph(
             dashBoardGraphViewID.appDurationGraph,
             "App duration",
@@ -127,7 +127,7 @@ class GMAnalytics : AppCompatActivity() {
 
         // Screen duration graph
         dataPointsList.clear()
-        dataPointsList.add(GraphPoints().getScreenDurationDataPointsList())
+        dataPointsList.add(GraphPoints().getScreenDurationVsDateDataPointsList())
         DrawLineGraph().renderTheGraph(
             dashBoardGraphViewID.screenDurationGraph,
             "Screen duration",
@@ -136,7 +136,7 @@ class GMAnalytics : AppCompatActivity() {
 
         // App sessions graph
         dataPointsList.clear()
-        dataPointsList.add(GraphPoints().getScreenCountDataPointList())
+        dataPointsList.add(GraphPoints().getScreenCountVsDateDataPointList())
         DrawLineGraph().renderTheGraph(
             dashBoardGraphViewID.appSessionsGraph,
             "App Count",
@@ -145,7 +145,7 @@ class GMAnalytics : AppCompatActivity() {
 
         // Event count graph
         dataPointsList.clear()
-        dataPointsList.add(GraphPoints().getEventsCountDataPointList())
+        dataPointsList.add(GraphPoints().getEventsCountVsDateDataPointList())
         DrawLineGraph().renderTheGraph(
             dashBoardGraphViewID.eventCountGraph,
             "Event Count",
@@ -154,7 +154,7 @@ class GMAnalytics : AppCompatActivity() {
 
         // Page view count graph
         dataPointsList.clear()
-        dataPointsList.add(GraphPoints().getScreenCountDataPointList())
+        dataPointsList.add(GraphPoints().getScreenCountVsDateDataPointList())
         DrawLineGraph().renderTheGraph(
             dashBoardGraphViewID.pageViewsGraph,
             "Page views",
